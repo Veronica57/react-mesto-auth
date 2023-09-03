@@ -1,0 +1,8 @@
+.photo__element {
+    max-width: 282px;
+    border-radius: 10px;
+    background-color: #fff;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+}

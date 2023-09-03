@@ -1,0 +1,14 @@
+.photo__like {
+    background-image: url("../../../images/like-disabled.svg");
+    border: none;
+    background-repeat: no-repeat;
+    width: 22px;
+    height: 19px;
+    background-size: contain;
+    background-color: #fff;
+}
+
+.photo__like:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}

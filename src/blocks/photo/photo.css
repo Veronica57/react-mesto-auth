@@ -1,0 +1,17 @@
+.photo {
+    max-width: 880px;
+    margin: 47px auto 67px;
+}
+
+@media (max-width: 1024px) {
+    .photo {
+        max-width: 582px;
+    }
+}
+
+@media (max-width: 600px) {
+    .photo {
+        max-width: 282px;
+        margin: 36px auto 48px;
+    }
+}
