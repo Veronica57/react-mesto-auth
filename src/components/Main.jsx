@@ -2,7 +2,7 @@ import Card from "./Card";
 import api from "../utils/Api";
 import { useEffect, useState } from "react";
 
-function Main({ onEditAvatar, onAddPlace, onCardClick }) {
+function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
     const [userName, setUserName] = useState("");
     const [userDescription, setUserDescription] = useState("");
     const [userAvatar, setUserAvatar] = useState("");
@@ -41,17 +41,23 @@ function Main({ onEditAvatar, onAddPlace, onCardClick }) {
                     <button
                         className="profile__edit-button"
                         type="button"
-                        onClick={onAddPlace}></button>
+                        onClick={onEditProfile}></button>
                 </div>
-                <button className="profile__add-button" type="button"></button>
+                <button
+                    className="profile__add-button"
+                    type="button"
+                    onClick={onAddPlace}></button>
             </section>
             <section className="photo">
                 <ul className="photo__elements">
-                    {cards.map((data) => {
+                    {cards.map((card) => {
                         return (
-                            <div id="photoTemplate" key={data._id}>
-                                <Card card={data} onCardClick={onCardClick} />
-                            </div>
+                            <Card
+                                card={card}
+                                onCardClick={onCardClick}
+                                key={card._id}
+                                likesNumber={card.likes.length}
+                            />
                         );
                     })}
                 </ul>
