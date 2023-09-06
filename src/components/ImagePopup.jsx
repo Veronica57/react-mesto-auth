@@ -1,8 +1,8 @@
-function ImagePopup({ card, isOpen, onClose }) {
+function ImagePopup({ card, onClose }) {
     return (
         <div
             className={`popup popup_image-background show-popup' ${
-                isOpen && "popup_opened"
+                card ? "popup_opened" : ""
             }`}
             id="openImage">
             <div className="popup__image-container">
@@ -13,10 +13,10 @@ function ImagePopup({ card, isOpen, onClose }) {
                 <div>
                     <img
                         className="popup__image"
-                        alt={`Фотография ${card.name}`}
-                        src={card.link}
+                        alt={`Фотография ${card ? card.name : ""}`}
+                        src={card ? card.link : ""}
                     />
-                    <p className="popup__image-name">{card.name}</p>
+                    <p className="popup__image-name">{card ? card.name : ""}</p>
                 </div>
             </div>
         </div>

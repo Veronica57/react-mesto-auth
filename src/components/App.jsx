@@ -8,37 +8,31 @@ import { useState } from "react";
 
 function App() {
     const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
+    const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
+    const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
+    const [selectedCard, setSelectedCard] = useState(null);
 
     const handleEditAvatarClick = () => {
         setEditAvatarPopupOpen(true);
     };
 
-    const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
-
     const handleEditProfileClick = () => {
         setEditProfilePopupOpen(true);
     };
-
-    const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
 
     const handleAddPlaceClick = () => {
         setAddPlacePopupOpen(true);
     };
 
-    const [isImagePopupOpen, setImagePopupOpen] = useState(false);
+    const handleCardClick = (card) => {
+        setSelectedCard(card);
+    };
 
     const closeAllPopups = () => {
         setEditAvatarPopupOpen(false);
         setAddPlacePopupOpen(false);
         setEditProfilePopupOpen(false);
-        setImagePopupOpen(false);
-    };
-
-    const [selectedCard, setSelectedCard] = useState({});
-
-    const handleCardClick = (card) => {
-        setSelectedCard(card);
-        setImagePopupOpen(true);
+        setSelectedCard(null);
     };
 
     return (
@@ -89,7 +83,7 @@ function App() {
                 {/* Add Photo */}
                 <PopupWithForm
                     title={"Новое место"}
-                    submitButton={"Сохранить"}
+                    submitButton={"Создать"}
                     name={"addImageForm"}
                     isOpen={isAddPlacePopupOpen}
                     onClose={closeAllPopups}>
@@ -147,11 +141,7 @@ function App() {
                     name={"confirmDelete"}
                     submitButton={"Да"}
                 />
-                <ImagePopup
-                    card={selectedCard}
-                    isOpen={isImagePopupOpen}
-                    onClose={closeAllPopups}
-                />
+                <ImagePopup card={selectedCard} onClose={closeAllPopups} />
             </div>
         </div>
     );

@@ -9,8 +9,8 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
     const [cards, setCards] = useState([]);
 
     useEffect(() => {
-        Promise.all([api.getInfo(), api.getCards()]).then(
-            ([dataUser, dataCard]) => {
+        Promise.all([api.getInfo(), api.getCards()])
+            .then(([dataUser, dataCard]) => {
                 setUserName(dataUser.name);
                 setUserDescription(dataUser.about);
                 setUserAvatar(dataUser.avatar);
@@ -18,8 +18,8 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
                     element.id = dataUser._id;
                 });
                 setCards(dataCard);
-            }
-        );
+            })
+            .catch((error) => console.error(`Код ошибки ${error}`));
     }, []);
 
     return (
@@ -56,7 +56,6 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
                                 card={card}
                                 onCardClick={onCardClick}
                                 key={card._id}
-                                likesNumber={card.likes.length}
                             />
                         );
                     })}
