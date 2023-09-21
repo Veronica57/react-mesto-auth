@@ -75,6 +75,14 @@ class Api {
         }).then(this._checkResponse);
     }
 
+    changeLike(id, isLiked) {
+        if (isLiked) {
+            return this.deleteLike(id);
+        } else {
+            return this.addLike(id);
+        }
+    }
+
     deleteCard(cardId) {
         return fetch(`${this._baseUrl}/cards/${cardId}/`, {
             method: "DELETE",

@@ -1,5 +1,4 @@
 import Card from "./Card";
-// import api from "../utils/Api";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 import { useContext } from "react";
 
@@ -12,25 +11,6 @@ function Main({
     onCardLike,
     onCardDelete,
 }) {
-    // const [userName, setUserName] = useState("");
-    // const [userDescription, setUserDescription] = useState("");
-    // const [userAvatar, setUserAvatar] = useState("");
-    // const [cards, setCards] = useState([]);
-
-    // useEffect(() => {
-    //     Promise.all([api.getInfo(), api.getCards()])
-    //         .then(([dataUser, dataCard]) => {
-    //             setUserName(dataUser.name);
-    //             setUserDescription(dataUser.about);
-    //             setUserAvatar(dataUser.avatar);
-    //             dataCard.forEach((element) => {
-    //                 element.id = dataUser._id;
-    //             });
-    //             setCards(dataCard);
-    //         })
-    //         .catch((error) => console.error(`Код ошибки ${error}`));
-    // }, []);
-
     const user = useContext(CurrentUserContext);
     return (
         <main>
