@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import PopupWithForm from "./PopupWithForm";
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
+function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }) {
     const imageName = useRef(null);
     const imageLink = useRef(null);
 
@@ -21,11 +21,11 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
     return (
         <PopupWithForm
             title={"Новое место"}
-            submitButton={"Создать"}
             name={"addImageForm"}
             isOpen={isOpen}
             onClose={onClose}
-            onSubmit={handleSubmit}>
+            onSubmit={handleSubmit}
+            submitButton={isLoading ? "Сохранение..." : "Создать"}>
             <div className="popup__form-fieldset">
                 <div className="popup__input-container">
                     <input
