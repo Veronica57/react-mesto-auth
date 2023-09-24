@@ -33,12 +33,11 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
     return (
         <PopupWithForm
             title={"Редактировать профиль"}
-            submitButton={"Сохранить"}
             name={"editForm"}
             isOpen={isOpen}
             onClose={onClose}
             onSubmit={handleSubmit}
-            buttonText={isLoading ? "Сохранение..." : "Сохранить"}>
+            submitButton={isLoading ? "Сохранение..." : "Сохранить"}>
             <div className="popup__form-fieldset">
                 <div className="popup__input-container">
                     <input
