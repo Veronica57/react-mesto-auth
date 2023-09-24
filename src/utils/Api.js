@@ -9,7 +9,7 @@ class Api {
         return res.ok ? res.json() : Promise.reject(`Код ошибки ${res.status}`);
     }
 
-    //получение данных о пользователе
+    //user data receiving
     getInfo() {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: {
@@ -18,7 +18,7 @@ class Api {
         }).then(this._checkResponse);
     }
 
-    // Обновление данных о ползователе
+    // user data updating
     setInfo(data) {
         return fetch(`${this._baseUrl}/users/me`, {
             method: "PATCH",
@@ -30,7 +30,7 @@ class Api {
         }).then(this._checkResponse);
     }
 
-    //Обновление аватара
+    //avatar updating
     setAvatar(data) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: "PATCH",
@@ -41,7 +41,7 @@ class Api {
         }).then(this._checkResponse);
     }
 
-    //получение данных о карточках
+    //user data receiving
     getCards() {
         return fetch(`${this._baseUrl}/cards`, {
             headers: {
@@ -50,7 +50,7 @@ class Api {
         }).then(this._checkResponse);
     }
 
-    //добавлении новой карточки
+    //new card adding
     addNewCard(data) {
         return fetch(`${this._baseUrl}/cards`, {
             method: "POST",
@@ -62,7 +62,7 @@ class Api {
         }).then(this._checkResponse);
     }
 
-    //добавление лайка
+    //like adding
     addLike(cardId) {
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
             method: "PUT",
@@ -72,7 +72,7 @@ class Api {
         }).then(this._checkResponse);
     }
 
-    //удаление лайка
+    //like deleting
     deleteLike(cardId) {
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
             method: "DELETE",
@@ -82,15 +82,7 @@ class Api {
         }).then(this._checkResponse);
     }
 
-    // changeLike(id, isLiked) {
-    //     if (isLiked) {
-    //         return this.deleteLike(id);
-    //     } else {
-    //         return this.addLike(id);
-    //     }
-    // }
-
-    //удаление карточки
+    //card deleting
     deleteCard(cardId) {
         return fetch(`${this._baseUrl}/cards/${cardId}/`, {
             method: "DELETE",

@@ -12,15 +12,15 @@ import EditProfilePopup from "./EditProfilePopup";
 import AddPlacePopup from "./AddPlacePopup";
 
 function App() {
-    const [cards, setCards] = useState([]); //карточки
-    const [currentUser, setCurrentUser] = useState({}); // пользователь
-    const [selectedCard, setSelectedCard] = useState(null); //выбранная карточка
-    const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false); //профиль пользователя
-    const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false); //добавление картинки
-    const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false); //изменение аватара
-    const [isDeletePopupOpen, setDeletePopupOpen] = useState(false); // удаление карточки
-    const [isLoading, setIsLoading] = useState(true); //загрузка
-    const [deletedCard, setDeletedCard] = useState(); //удаление карточки
+    const [cards, setCards] = useState([]); //cards
+    const [currentUser, setCurrentUser] = useState({}); // user
+    const [selectedCard, setSelectedCard] = useState(null); //selected card
+    const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false); //user profile
+    const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false); //card adding
+    const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false); //avatar updating
+    const [isDeletePopupOpen, setDeletePopupOpen] = useState(false); // delete popup
+    const [isLoading, setIsLoading] = useState(false); //loading
+    const [deletedCard, setDeletedCard] = useState(); //card deleting
 
     //close all popups
     const closeAllPopups = useCallback(() => {
@@ -31,21 +31,21 @@ function App() {
         setDeletePopupOpen(false);
     }, []);
 
-    //получение данных о пользователе
+    //user data getting
     useEffect(() => {
         api.getInfo()
             .then((info) => setCurrentUser(info))
             .catch((error) => console.error(error));
     }, []);
 
-    //получение карточек
+    //cards receiving
     useEffect(() => {
         api.getCards()
             .then((cards) => setCards(cards))
             .catch((error) => console.error(error));
     }, []);
 
-    // обновление пользователя
+    // user data updating
     const handleUpdateUser = (data) => {
         setIsLoading(true);
         api.setInfo(data)
@@ -57,7 +57,7 @@ function App() {
             .finally(() => setIsLoading(false));
     };
 
-    //Обновление автара
+    //avatar updating
     const handleUpdateAvatar = (data) => {
         setIsLoading(true);
         api.setAvatar(data)
@@ -69,7 +69,7 @@ function App() {
             .finally(() => setIsLoading(false));
     };
 
-    //загрузка новой карточки
+    //new card loading
     const handleAddPlaceSubmit = (data) => {
         setIsLoading(true);
         api.addNewCard(data)
@@ -80,11 +80,10 @@ function App() {
             .catch((error) => console.error(error))
             .finally(() => setIsLoading(false));
     };
-    //установка лайка на карточке
+
+    //like status updating
     const handleCardLike = (card) => {
-        const isLiked = cards.likes.some(
-            (item) => item._id === currentUser._id
-        );
+        const isLiked = card.likes.some((like) => like._id === currentUser._id);
         if (!isLiked) {
             api.addLike(card._id)
                 .then((like) =>
@@ -108,27 +107,23 @@ function App() {
         }
     };
 
-    // api.changeLike(card._id, isLiked)
-    //         .then((newCard) => {
-    //             const newCards = cards.map((currentCard) =>
-    //                 currentCard._id === card._id ? newCard : currentCard
-    //             );
-    //             setCards(newCards);
-    //         })
-    //         .catch((error) => console.error(error));
-
-    // удаление карточки
-    const handleCardDelete = (card) => {
+    // card deleting
+    const handleCardDelete = (event) => {
+        event.preventDefault();
         setIsLoading(true);
-        api.deleteCard(card._id).then(() =>
-            setCards(cards.filter((item) => item !== card))
+        api.deleteCard(deletedCard._id).then(() =>
+            api
+                .getCards()
+                .then((dataCards) => {
+                    setCards(dataCards);
+                })
                 .then(() => closeAllPopups())
                 .catch((error) => console.error(error))
                 .finally(() => setIsLoading(false))
         );
     };
 
-    // открытие попапа удаления
+    // delete popup open
     const handleDeleteClick = (card) => {
         setDeletePopupOpen(true);
         setDeletedCard(card);
@@ -192,13 +187,12 @@ function App() {
                     />
                     {/* Confirm Delete Photo */}
                     <PopupWithForm
-                        isLoading={isLoading}
                         title={"Вы уверены?"}
                         name={"confirmDelete"}
                         submitButton={isLoading ? "Удаление..." : "Да"}
                         isOpen={isDeletePopupOpen}
                         onClose={closeAllPopups}
-                        deleteCard={handleCardDelete}
+                        onSubmit={handleCardDelete}
                         card={deletedCard}
                     />
                     <ImagePopup card={selectedCard} onClose={closeAllPopups} />
