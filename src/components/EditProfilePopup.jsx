@@ -44,11 +44,11 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
                         type="text"
                         name="username"
                         className="popup__input popup__input_user_name"
-                        required=""
+                        required
                         minLength={2}
                         maxLength={40}
                         placeholder="Имя пользователя"
-                        defaultValue={userName}
+                        value={userName || ""}
                         onChange={handleUserName}
                     />
                     <span className="popup__input-error popup__input-username-error"></span>
@@ -58,11 +58,11 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
                         type="text"
                         name="userdescription"
                         className="popup__input popup__input_user_description"
-                        required=""
+                        required
                         minLength={2}
                         maxLength={200}
                         placeholder="Описание пользователя"
-                        defaultValue={userDescription}
+                        value={userDescription || ""}
                         onChange={handleUserDescription}
                     />
                     <span className="popup__input-error popup__input-userdescription-error"></span>

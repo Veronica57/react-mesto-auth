@@ -49,9 +49,7 @@ function App() {
     const handleUpdateUser = (data) => {
         setIsLoading(true);
         api.setInfo(data)
-            .then((info) => {
-                setCurrentUser(info);
-            })
+            .then((info) => setCurrentUser(info))
             .then(() => closeAllPopups())
             .catch((error) => console.error(error))
             .finally(() => setIsLoading(false));
@@ -61,9 +59,7 @@ function App() {
     const handleUpdateAvatar = (data) => {
         setIsLoading(true);
         api.setAvatar(data)
-            .then((info) => {
-                setCurrentUser(info);
-            })
+            .then((info) => setCurrentUser(info))
             .then(() => closeAllPopups())
             .catch((error) => console.error(error))
             .finally(() => setIsLoading(false));
