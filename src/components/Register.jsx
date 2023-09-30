@@ -1,23 +1,22 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function Register({ handleRegisterSubmit }) {
-    const [data, setData] = useState({
-        password: "",
-        email: "",
-    });
+function Register({ onRegister }) {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-    const handleDataChange = (event) => {
-        const { name, value } = event.target;
-        setData({
-            ...data,
-            [name]: value,
-        });
+    const handleChangeEmail = (event) => {
+        setEmail(event.target.value);
     };
-    const handleSubmit = (event) => {
+
+    const handleChangePassword = (event) => {
+        setPassword(event.target.value);
+    };
+
+    function handleSubmit(event) {
         event.preventDefault();
-        handleRegisterSubmit(data.email, data.password);
-    };
+        onRegister(password, email);
+    }
 
     return (
         <main className="sign">
@@ -32,10 +31,8 @@ function Register({ handleRegisterSubmit }) {
                         required
                         minLength="2"
                         placeholder="Email"
-                        value={data.email}
-                        onChange={(event) => {
-                            handleDataChange(event);
-                        }}></input>
+                        value={email}
+                        onChange={handleChangeEmail}></input>
                     <input
                         id="password"
                         name="password"
@@ -44,15 +41,13 @@ function Register({ handleRegisterSubmit }) {
                         required
                         minLength="6"
                         placeholder="Пароль"
-                        value={data.password}
-                        onChange={(event) => {
-                            handleDataChange(event);
-                        }}></input>
+                        value={password}
+                        onChange={handleChangePassword}></input>
                     <button className="sign__button" type="submit">
                         Зарегистрироваться
                     </button>
                 </form>
-                <Link to="/sign-in" className="sign__link">
+                <Link to="/signin" className="sign__link">
                     Уже зарегистрированы? Войти
                 </Link>
             </div>

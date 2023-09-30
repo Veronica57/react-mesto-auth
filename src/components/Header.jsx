@@ -45,7 +45,7 @@ function Header({ loggedIn, email, onSignOut }) {
                     {location.pathname === "/signin" ? (
                         <div className="header__set">
                             <Link
-                                to="/signin"
+                                to="/signup"
                                 className="header__navigate-title">
                                 Регистрация
                             </Link>

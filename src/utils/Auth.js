@@ -1,38 +1,44 @@
-export const BASE_URL = "https://auth.nomoreparties.co";
+class Auth {
+    constructor(options) {
+        this._baseUrl = options.baseUrl;
+    }
 
-const checkResponse = (res) => {
-    return res.ok ? res.json() : Promise.reject(`Код ошибки ${res.status}`);
-};
+    _checkResponse(res) {
+        return res.ok ? res.json() : Promise.reject(`Код ошибки ${res.status}`);
+    }
 
-export const register = (password, email) => {
-    return fetch(`${BASE_URL}/signup`, {
-        method: `POST`,
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ password, email }),
-    }).then(checkResponse);
-};
+    async _fetch(url, options = {}) {
+        const res = await fetch(`${this._baseUrl}${url}`, {
+            ...options,
+            headers: { "Content-type": "application/json", ...options.headers },
+        });
+        return this._checkResponse(res);
+    }
 
-export const authorize = (password, email) => {
-    return fetch(`${BASE_URL}/signin`, {
-        method: `POST`,
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ password, email }),
-    }).then(checkResponse);
-};
+    register(password, email) {
+        return this._fetch("/signup", {
+            method: "POST",
+            body: JSON.stringify({ email, password }),
+        });
+    }
 
-export const getToken = (token) => {
-    return fetch(`${BASE_URL}/users/me`, {
-        method: `GET`,
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-    }).then(checkResponse);
-};
+    authorize(email, password) {
+        return this._fetch("/signin", {
+            method: "POST",
+            body: JSON.stringify({ email, password }),
+        });
+    }
+
+    getToken(token) {
+        return this._fetch("/users/me", {
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
+        });
+    }
+}
+
+const auth = new Auth({
+    baseUrl: "https://auth.nomoreparties.co",
+});
+
+export default auth;

@@ -1,22 +1,21 @@
 import { useState } from "react";
 
-function Login({ handleLoginSubmit }) {
-    const [data, setData] = useState({
-        password: "",
-        email: "",
-    });
+function Login({ onLogin }) {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-    const handleDataChange = (event) => {
-        const { name, value } = event.target;
-        setData({
-            ...data,
-            [name]: value,
-        });
+    const handleChangeEmail = (event) => {
+        setEmail(event.target.value);
     };
-    const handleSubmit = (event) => {
+
+    const handleChangePassword = (event) => {
+        setPassword(event.target.value);
+    };
+
+    function handleSubmit(event) {
         event.preventDefault();
-        handleLoginSubmit(data.email, data.password);
-    };
+        onLogin(password, email);
+    }
 
     return (
         <main className="sign">
@@ -29,24 +28,20 @@ function Login({ handleLoginSubmit }) {
                         className="sign__input"
                         type="email"
                         required
-                        minLength={"2"}
+                        minLength="2"
                         placeholder="Email"
-                        value={data.email}
-                        onChange={(event) => {
-                            handleDataChange(event);
-                        }}></input>
+                        value={email || ""}
+                        onChange={handleChangeEmail}></input>
                     <input
                         id="password"
                         name="password"
                         className="sign__input"
                         type="password"
                         required
-                        minLength={"2"}
+                        minLength="6"
                         placeholder="Пароль"
-                        value={data.password}
-                        onChange={(event) => {
-                            handleDataChange(event);
-                        }}></input>
+                        value={password || ""}
+                        onChange={handleChangePassword}></input>
                     <button className="sign__button" type="submit">
                         Войти
                     </button>
