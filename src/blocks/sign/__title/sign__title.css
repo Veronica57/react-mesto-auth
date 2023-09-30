@@ -1,0 +1,19 @@
+.sign__title {
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    color: #fff;
+    text-align: center;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+    /* line-height: 28px; */
+    text-align: center;
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    .sign__title {
+        font-size: 20px;
+        line-height: 24px;
+    }
+}

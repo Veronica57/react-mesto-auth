@@ -1,0 +1,27 @@
+.info-tooltip__close {
+    width: 32px;
+    height: 32px;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    background-image: url("../../../images/close-popup-icon.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    top: -45px;
+    right: -45px;
+}
+
+.info-tooltip__close:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .info-tooltip__close {
+        width: 20px;
+        height: 20px;
+        top: -37px;
+        right: 0;
+    }
+}

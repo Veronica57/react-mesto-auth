@@ -5,6 +5,11 @@
 @import url("./blocks/header/header.css");
 @import url("./blocks/header/__logo/header__logo.css");
 @import url("./blocks/header/__link/header___link.css");
+@import url("./blocks/header/__email/header__email.css");
+@import url("./blocks/header/__link-escape/header__link-escape.css");
+@import url("./blocks/header/__navigate-title/header__navigate-title.css");
+@import url("./blocks/header/__navigate/header__navigate.css");
+@import url("./blocks/header/__set/header__set.css");
 /* Profile */
 @import url("./blocks/profile/profile.css");
 @import url("./blocks/profile/__name/profile__name.css");
@@ -53,3 +58,16 @@
 @import url("./blocks/popup/__input-user-description-error/popup__input-user-description-error.css");
 @import url("./blocks/popup/__container/__container-delete/popup__container-delete.css");
 @import url("./blocks/popup/__button/_delete/popup__button-delete.css");
+/* sign */
+@import url("./blocks/sign/sign.css");
+@import url("./blocks/sign/__button/sign__button.css");
+@import url("./blocks/sign/__container/sign__container.css");
+@import url("./blocks/sign/__form/sign__form.css");
+@import url("./blocks/sign/__input/sign__input.css");
+@import url("./blocks/sign/__link/sign__link.css");
+@import url("./blocks/sign/__title/sign__title.css");
+/* info-tooltip */
+@import url("./blocks/info-tooltip/__close/info-tooltip__close.css");
+@import url("./blocks/info-tooltip/__container/info-tooltip__container.css");
+@import url("./blocks/info-tooltip/__image/info-tooltip__image.css");
+@import url("./blocks/info-tooltip/__subtitle/info-tooltip__subtitle.css");

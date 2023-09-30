@@ -1,0 +1,9 @@
+.header__set {
+    padding-top: 51px;
+}
+
+@media (max-width: 320px) {
+    .header__set {
+        padding-top: 30px;
+    }
+}
