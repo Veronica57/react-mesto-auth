@@ -3,7 +3,13 @@
     align-items: center;
     gap: 24px;
     margin: 0;
-    padding-top: 6px;
+    padding-top: 51px;
     text-decoration: none;
     height: 22px;
+}
+
+@media (max-width: 320px) {
+    .header__navigate {
+        padding-top: 30px;
+    }
 }
