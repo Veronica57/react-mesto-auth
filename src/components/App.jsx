@@ -95,7 +95,7 @@ function App() {
     }
 
     //login
-    async function handleLoginSubmit({ password, email }) {
+    async function handleLoginSubmit(password, email) {
         try {
             const data = await auth.authorize(password, email);
             if (data.token) {
