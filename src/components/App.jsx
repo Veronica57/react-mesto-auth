@@ -81,9 +81,9 @@ function App() {
     }, [navigate]);
 
     //registration
-    async function handleRegisterSubmit(password, email) {
+    async function handleRegisterSubmit(email, password) {
         try {
-            await auth.register(password, email);
+            await auth.register(email, password);
             navigate("/signin", { replace: true });
             setRegistrationSuccess(true);
             handleSignUp("Вы успешно зарегистрировались!");
@@ -95,9 +95,9 @@ function App() {
     }
 
     //login
-    async function handleLoginSubmit(password, email) {
+    async function handleLoginSubmit(email, password) {
         try {
-            const data = await auth.authorize(password, email);
+            const data = await auth.authorize(email, password);
             if (data.token) {
                 localStorage.setItem("jwt", data.token);
                 setLoggedIn(true);
