@@ -1,6 +1,6 @@
 {
-    "homepage": "https://veronica57.github.io/mesto-react/",
-    "name": "mesto-react",
+    "homepage": "https://veronica57.github.io/react-mesto-auth/",
+    "name": "react-mesto-auth",
     "version": "0.1.0",
     "private": true,
     "dependencies": {

@@ -1,6 +1,6 @@
 import "../index.css";
 import { useCallback, useEffect, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 import api from "../utils/Api";
 import auth from "../utils/Auth";
@@ -228,7 +228,7 @@ function App() {
 
     return (
         <CurrentUserContext.Provider value={currentUser}>
-            <div>
+            <>
                 <div className="page">
                     <Header
                         loggedIn={loggedIn}
@@ -262,6 +262,7 @@ function App() {
                                 <Register onRegister={handleRegisterSubmit} />
                             }
                         />
+                        <Route path="*" element={<Navigate to="/signin" />} />
                     </Routes>
                     {/* Info tooltip */}
                     <InfoToolTip
@@ -305,7 +306,7 @@ function App() {
                     />
                     <ImagePopup card={selectedCard} onClose={closeAllPopups} />
                 </div>
-            </div>
+            </>
         </CurrentUserContext.Provider>
     );
 }
