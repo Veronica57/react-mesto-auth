@@ -4,13 +4,13 @@ import success from "../images/success.svg";
 function InfoToolTip({ onClose, isOpen, isSuccess, message }) {
     return (
         <div
-            className={`popup info-tooltip ${isOpen && "popup_opened"}`}
-            onClick={onClose}>
-            <div className="info-tooltip__container">
+            className={`popup info-tooltip
+            onClick={onClose}> ${isOpen && "popup_opened"}`}>
+            <div className=" info-tooltip__container">
                 <img
                     className="info-tooltip__image"
                     src={isSuccess ? success : fail}
-                    alt="#"
+                    alt="Результат запроса"
                 />
                 <p className="info-tooltip__subtitle">{message}</p>
                 <button

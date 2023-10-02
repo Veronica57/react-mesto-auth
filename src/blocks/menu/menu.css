@@ -1,0 +1,25 @@
+.menu {
+    display: flex;
+    gap: 24px;
+    color: #fff;
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    line-height: 22px;
+    padding-top: 51px;
+    padding-bottom: 46px;
+}
+
+@media (max-width: 1024px) {
+    .menu {
+        padding-right: 27px;
+    }
+}
+
+@media (max-width: 320px) {
+    .menu {
+        padding-top: 34px;
+        padding-bottom: 33px;
+        font-size: 14px;
+        line-height: 16px;
+    }
+}

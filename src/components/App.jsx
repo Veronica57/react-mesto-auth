@@ -33,7 +33,7 @@ function App() {
     const [isLoading, setIsLoading] = useState(false); //loading
     // Delete popup
     const [isDeletePopupOpen, setDeletePopupOpen] = useState(false); // delete popup
-    const [deletedCard, setDeletedCard] = useState(); //card deleting
+    const [deletedCard, setDeletedCard] = useState(null); //card deleting
 
     //navigate
     const navigate = useNavigate();
@@ -184,27 +184,37 @@ function App() {
         }
     };
 
-    // card deleting
-    const handleCardDelete = (event) => {
-        event.preventDefault();
-        setIsLoading(true);
-        api.deleteCard(deletedCard._id).then(() =>
-            api
-                .getCards()
-                .then((dataCards) => {
-                    setCards(dataCards);
-                })
-                .then(() => closeAllPopups())
-                .catch((error) => console.error(error))
-                .finally(() => setIsLoading(false))
-        );
-    };
-
     // delete popup open
     const handleDeleteClick = (card) => {
         setDeletePopupOpen(true);
         setDeletedCard(card);
     };
+
+    // card deleting
+    const handleCardDelete = (event) => {
+        event.preventDefault();
+        setIsLoading(true);
+        api.deleteCard(deletedCard._id)
+            .then(() => setCards(cards.filter((item) => item !== deletedCard)))
+            .then(() => closeAllPopups())
+            .catch((error) => console.error(error))
+            .finally(() => setIsLoading(false));
+    };
+
+    // const handleCardDelete = (event) => {
+    //     event.preventDefault();
+    //     setIsLoading(true);
+    //     api.deleteCard(deletedCard._id).then(() =>
+    //         api
+    //             .getCards()
+    //             .then((dataCards) => {
+    //                 setCards(dataCards);
+    //             })
+    //             .then(() => closeAllPopups())
+    //             .catch((error) => console.error(error))
+    //             .finally(() => setIsLoading(false))
+    //     );
+    // };
 
     //edit avatar open
     const handleEditAvatarClick = () => {
@@ -228,85 +238,81 @@ function App() {
 
     return (
         <CurrentUserContext.Provider value={currentUser}>
-            <>
-                <div className="page">
-                    <Header
-                        loggedIn={loggedIn}
-                        email={email}
-                        onSignOut={handleSignOut}
+            <div className="page">
+                <Header
+                    // loggedIn={loggedIn}
+                    email={email}
+                    onSignOut={handleSignOut}
+                />
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <ProtectedRoute loggedIn={loggedIn}>
+                                <Main
+                                    onEditAvatar={handleEditAvatarClick}
+                                    onEditProfile={handleEditProfileClick}
+                                    onAddPlace={handleAddPlaceClick}
+                                    onCardClick={handleCardClick}
+                                    onCardLike={handleCardLike}
+                                    onCardDelete={handleDeleteClick}
+                                    cards={cards}
+                                />
+                            </ProtectedRoute>
+                        }
                     />
-                    <Routes>
-                        <Route
-                            path="/"
-                            element={
-                                <ProtectedRoute loggedIn={loggedIn}>
-                                    <Main
-                                        onEditAvatar={handleEditAvatarClick}
-                                        onEditProfile={handleEditProfileClick}
-                                        onAddPlace={handleAddPlaceClick}
-                                        onCardClick={handleCardClick}
-                                        onCardLike={handleCardLike}
-                                        onCardDelete={handleDeleteClick}
-                                        cards={cards}
-                                    />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route
-                            path="/signin"
-                            element={<Login onLogin={handleLoginSubmit} />}
-                        />
-                        <Route
-                            path="/signup"
-                            element={
-                                <Register onRegister={handleRegisterSubmit} />
-                            }
-                        />
-                        <Route path="*" element={<Navigate to="/signin" />} />
-                    </Routes>
-                    {/* Info tooltip */}
-                    <InfoToolTip
-                        name="infoToolTip"
-                        isOpen={isInfoToolTipOpen}
-                        message={isInfoToolTipMessage}
-                        isSuccess={isRegistrationSuccess}
-                        onClose={closeAllPopups}
+                    <Route
+                        path="/signin"
+                        element={<Login onLogin={handleLoginSubmit} />}
                     />
-                    <Footer />
-                    {/* Edit Profile */}
-                    <EditProfilePopup
-                        isLoading={isLoading}
-                        isOpen={isEditProfilePopupOpen}
-                        onClose={closeAllPopups}
-                        onUpdateUser={handleUpdateUser}
+                    <Route
+                        path="/signup"
+                        element={<Register onRegister={handleRegisterSubmit} />}
                     />
-                    {/* Add Photo */}
-                    <AddPlacePopup
-                        isLoading={isLoading}
-                        isOpen={isAddPlacePopupOpen}
-                        onClose={closeAllPopups}
-                        onAddPlace={handleAddPlaceSubmit}
-                    />
-                    {/* Add User Avatar */}
-                    <EditAvatarPopup
-                        isLoading={isLoading}
-                        isOpen={isEditAvatarPopupOpen}
-                        onClose={closeAllPopups}
-                        onUpdateAvatar={handleUpdateAvatar}
-                    />
-                    {/* Confirm Delete Photo */}
-                    <PopupWithForm
-                        title={"Вы уверены?"}
-                        name={"confirmDelete"}
-                        submitButton={isLoading ? "Удаление..." : "Да"}
-                        isOpen={isDeletePopupOpen}
-                        onClose={closeAllPopups}
-                        onSubmit={handleCardDelete}
-                        card={deletedCard}
-                    />
-                    <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-                </div>
-            </>
+                    <Route path="*" element={<Navigate to="/signin" />} />
+                </Routes>
+                {/* Info tooltip */}
+                <InfoToolTip
+                    name="infoToolTip"
+                    isOpen={isInfoToolTipOpen}
+                    message={isInfoToolTipMessage}
+                    isSuccess={isRegistrationSuccess}
+                    onClose={closeAllPopups}
+                />
+                <Footer />
+                {/* Edit Profile */}
+                <EditProfilePopup
+                    isLoading={isLoading}
+                    isOpen={isEditProfilePopupOpen}
+                    onClose={closeAllPopups}
+                    onUpdateUser={handleUpdateUser}
+                />
+                {/* Add Photo */}
+                <AddPlacePopup
+                    isLoading={isLoading}
+                    isOpen={isAddPlacePopupOpen}
+                    onClose={closeAllPopups}
+                    onAddPlace={handleAddPlaceSubmit}
+                />
+                {/* Add User Avatar */}
+                <EditAvatarPopup
+                    isLoading={isLoading}
+                    isOpen={isEditAvatarPopupOpen}
+                    onClose={closeAllPopups}
+                    onUpdateAvatar={handleUpdateAvatar}
+                />
+                {/* Confirm Delete Photo */}
+                <PopupWithForm
+                    title={"Вы уверены?"}
+                    name={"confirmDelete"}
+                    submitButton={isLoading ? "Удаление..." : "Да"}
+                    isOpen={isDeletePopupOpen}
+                    onClose={closeAllPopups}
+                    onSubmit={handleCardDelete}
+                    card={deletedCard}
+                />
+                <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+            </div>
         </CurrentUserContext.Provider>
     );
 }

@@ -1,6 +1,6 @@
 .photo {
     max-width: 880px;
-    margin: 47px auto 67px;
+    margin: 47px auto 0;
 }
 
 @media (max-width: 1024px) {
@@ -12,6 +12,6 @@
 @media (max-width: 600px) {
     .photo {
         max-width: 282px;
-        margin: 36px auto 48px;
+        margin: 36px auto 0;
     }
 }
